@@ -1,4 +1,4 @@
-import { Application, Sprite, Container, Text, isMobile } from "pixi.js";
+import { Application, Sprite, Container, Text } from "pixi.js";
 import { gsap } from "gsap";
 import { soundManager } from "../utils/soundManager";
 import { BetNumber } from "./BetNumber";
@@ -16,20 +16,20 @@ export class Wheel {
   public balanceText: Text;
   public balance: number = 100;
   public amount: number = 10;
-  public amountText: Text;
+  public amountText!: Text;
   public increase: number = 10;
-  public increaseText: Text;
+  public increaseText!: Text;
   public decrease: number = 10;
-  public decreaseText: Text;
+  public decreaseText!: Text;
 
   private mainContainer: Container;
   private wheelContainer: Container;
   private uiContainer: Container;
   private betContainer: Container;
   private buttonContainer: Container;
-  private amountTile: Container;
-  private increaseButton: Container;
-  private decreaseButton: Container;
+  private amountTile!: Container;
+  private increaseButton!: Container;
+  private decreaseButton!: Container;
 
   private resizeHandler: () => void;
   private targetSegment = 5;
@@ -40,7 +40,7 @@ export class Wheel {
 
   constructor(
     app: Application,
-    private getSelectedBet: () => number | nul,
+    private getSelectedBet: () => number | null,
     betNumber: BetNumber
   ) {
     this.app = app;
@@ -199,6 +199,7 @@ export class Wheel {
     const isMobile = width <= 470;
     const designWidth = isMobile ? 370 : 1024;
     const designHeight = isMobile ? 740 : 768;
+    
 
     const scale = Math.min(width / designWidth, height / designHeight);
     this.mainContainer.scale.set(scale);
@@ -222,10 +223,11 @@ export class Wheel {
       this.amountTile.setTransform(0,buttonY-190);
       this.increaseButton.setTransform(-230,buttonY-200);
       this.decreaseButton.setTransform(230,buttonY-200);
-      this.balanceButton.scale.set(0.7);
-      this.balanceText.scale.set(1.3);
-      this.balanceButton.setTransform(-20,buttonY-1080);
-      this.balanceText.setTransform(this.balanceButton.x+12,this.balanceButton.y);
+      this.balanceButton.x = 0;
+  this.balanceButton.y = buttonY - 200; 
+  this.balanceText.x = this.balanceButton.x + 10;
+  this.balanceText.y = this.balanceButton.y;
+      
       
     } else {
       this.playText.setTransform(this.playButton.x-120, this.playButton.y+10 - this.playButton.height / 2 - 10);
